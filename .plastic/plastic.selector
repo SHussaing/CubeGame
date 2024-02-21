@@ -1,0 +1,4 @@
+repository "Cube@SHussaing@cloud"
+  path "/"
+    br "/main"
+    co "/main"
