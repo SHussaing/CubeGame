@@ -5,8 +5,8 @@ public class PlayerMovement : MonoBehaviour
 
     public Rigidbody rb;
 
-    public float speed = 2000f;
-    public float movement = 500f;
+    public float ForwardSpeed = 2000f;
+    public float SideWaysSpeed = 500f;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,24 +16,21 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (Input.GetKey("w"))
-        {
-            rb.AddForce(0, 0, speed * Time.deltaTime);
+        rb.AddForce(0, 0, ForwardSpeed * Time.deltaTime);
             
-        } 
-        else if (Input.GetKey("a"))
+        if (Input.GetKey("a"))
         {
-            rb.AddForce(speed * -1 * Time.deltaTime, 0, 0);
-        }
-        else if (Input.GetKey("s"))
-        {
-            rb.AddForce(0, 0, speed * -1 * Time.deltaTime);
-            
+            rb.AddForce(SideWaysSpeed * -1 * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
         else if (Input.GetKey("d"))
         {
-            rb.AddForce(speed * Time.deltaTime, 0, 0);
+            rb.AddForce(SideWaysSpeed * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+
         }
 
+        if (rb.position.y < -1f)
+        {
+            FindObjectOfType<Manager>().EndGame();
+        }
     }
 }
